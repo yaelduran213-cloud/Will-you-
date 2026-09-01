@@ -87,6 +87,18 @@
     z-index: 3;
   }
   .note strong { display: block; margin-bottom: 4px; }
+  .flower {
+    position: fixed;
+    z-index: 4;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    animation: bloom 1.6s ease-out forwards;
+  }
+  @keyframes bloom {
+    0%   { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+    35%  { transform: translate(-50%, -50%) scale(1.25) rotate(20deg); opacity: 1; }
+    100% { transform: translate(-50%, -140%) scale(0.9) rotate(-10deg); opacity: 0; }
+  }
   @keyframes float {
     0%   { transform: translateY(0) rotate(-8deg); }
     50%  { transform: translateY(-55vh) rotate(8deg); }
@@ -164,6 +176,18 @@
 
   buttons.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") advance();
+  });
+
+  const flowers = ["🌸", "🌷", "🌼", "🌺", "🌹", "💐", "🌻"];
+  document.addEventListener("click", (e) => {
+    const flower = document.createElement("div");
+    flower.className = "flower";
+    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+    flower.style.left = e.clientX + "px";
+    flower.style.top = e.clientY + "px";
+    flower.style.fontSize = 28 + Math.random() * 18 + "px";
+    document.body.appendChild(flower);
+    setTimeout(() => flower.remove(), 1700);
   });
 </script>
 </body>
