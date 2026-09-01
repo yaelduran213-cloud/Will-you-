@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dear Astrid</title>
+<meta property="og:title" content="Dear Astrid, will you be my girlfriend?" />
+<meta property="og:description" content="There is only one answer." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+<style>
+  :root { --pink: #ff6b9d; --deep: #d64177; }
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    min-height: 100%;
+    margin: 0;
+    font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(160deg, #ffe3ef 0%, #ffd0e4 50%, #ffc0dd 100%);
+    color: var(--deep);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 24px;
+    overflow-x: hidden;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 28px;
+    padding: 44px 32px;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 18px 50px rgba(214, 65, 119, 0.25);
+    position: relative;
+    z-index: 2;
+  }
+  h1 { font-size: clamp(1.7rem, 5vw, 2.6rem); margin: 0 0 8px; line-height: 1.2; }
+  p.sub { margin: 0 0 28px; font-size: 1.05rem; opacity: 0.75; }
+  .buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  button {
+    font: inherit;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #fff;
+    background: var(--pink);
+    border: none;
+    border-radius: 999px;
+    padding: 14px 40px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(255, 107, 157, 0.45);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  button:hover { transform: translateY(-3px) scale(1.04); background: var(--deep); }
+  button:active { transform: scale(0.97); }
+  .heart {
+    position: fixed;
+    top: -40px;
+    font-size: 24px;
+    animation: fall linear forwards;
+    z-index: 1;
+    pointer-events: none;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
+  }
+  .final h1 { font-size: clamp(2rem, 6vw, 3rem); }
+  .animal {
+    position: fixed;
+    bottom: -60px;
+    font-size: 38px;
+    opacity: 0.75;
+    z-index: 0;
+    pointer-events: none;
+    animation: float linear infinite;
+  }
+  .note {
+    width: min(620px, 100%);
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--deep);
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 18px;
+    padding: 12px 18px;
+    box-shadow: 0 8px 20px rgba(214, 65, 119, 0.18);
+    z-index: 3;
+  }
+  .note strong { display: block; margin-bottom: 4px; }
+  .verse {
+    font-family: "Great Vibes", "Segoe Script", cursive;
+    font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+    line-height: 1.35;
+    margin: 0 0 26px;
+    background: linear-gradient(90deg, #d64177, #ff6b9d, #b8478f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  .verse::before, .verse::after { content: "✦"; font-size: 0.6em; opacity: 0.5; margin: 0 10px; }
+  .flower {
+    position: fixed;
+    z-index: 4;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    animation: bloom 1.6s ease-out forwards;
+  }
+  @keyframes bloom {
+    0%   { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+    35%  { transform: translate(-50%, -50%) scale(1.25) rotate(20deg); opacity: 1; }
+    100% { transform: translate(-50%, -140%) scale(0.9) rotate(-10deg); opacity: 0; }
+  }
+  @keyframes float {
+    0%   { transform: translateY(0) rotate(-8deg); }
+    50%  { transform: translateY(-55vh) rotate(8deg); }
+    100% { transform: translateY(-115vh) rotate(-8deg); }
+  }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h1 id="question">I only wanted one girl and that's you,<br />so will you be my girlfriend?</h1>
+    <p class="sub" id="sub">Choose carefully.</p>
+    <p class="verse">como mentí, se ve claro lo que siento</p>
+    <div class="buttons" id="buttons">
+      <button type="button">Yes</button>
+      <button type="button">Yes</button>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>From Jesus 💖</strong>
+    You're a really nice girl and I just wanted to let you know that I'll always
+    be here for you, and I'll do anything for you.
+  </div>
+
+<script>
+  const steps = [
+    { question: "Are you sure?", sub: "Take your time." },
+    { question: "Are you sure sure?", sub: "Last chance to be extremely sure." }
+  ];
+
+  const animals = ["🐻", "🐰", "🐱", "🐶", "🦊", "🐼", "🐨", "🐹", "🐧", "🦄", "🐥", "🦔"];
+  animals.forEach((emoji, i) => {
+    const el = document.createElement("div");
+    el.className = "animal";
+    el.textContent = emoji;
+    el.style.left = (i / animals.length) * 100 + Math.random() * 5 + "vw";
+    el.style.animationDuration = 16 + Math.random() * 14 + "s";
+    el.style.animationDelay = -Math.random() * 20 + "s";
+    el.style.fontSize = 28 + Math.random() * 22 + "px";
+    document.body.appendChild(el);
+  });
+
+  let step = 0;
+  const card = document.getElementById("card");
+  const question = document.getElementById("question");
+  const sub = document.getElementById("sub");
+  const buttons = document.getElementById("buttons");
+
+  function rain(count) {
+    for (let i = 0; i < count; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = ["💖", "💕", "💗", "🩷", "❤️"][i % 5];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+      heart.style.animationDelay = Math.random() * 1.5 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 9000);
+    }
+  }
+
+  function advance() {
+    if (step < steps.length) {
+      question.textContent = steps[step].question;
+      sub.textContent = steps[step].sub;
+      step++;
+      rain(8);
+      return;
+    }
+    card.classList.add("final");
+    question.textContent = "Yay! 💖";
+    sub.textContent = "It's official: Astrid said yes (twice, and then some).";
+    buttons.remove();
+    rain(60);
+  }
+
+  buttons.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") advance();
+  });
+
+  const flowers = ["🌸", "🌷", "🌼", "🌺", "🌹", "💐", "🌻"];
+  document.addEventListener("click", (e) => {
+    const flower = document.createElement("div");
+    flower.className = "flower";
+    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+    flower.style.left = e.clientX + "px";
+    flower.style.top = e.clientY + "px";
+    flower.style.fontSize = 28 + Math.random() * 18 + "px";
+    document.body.appendChild(flower);
+    setTimeout(() => flower.remove(), 1700);
+  });
+</script>
+</body>
+</html>
