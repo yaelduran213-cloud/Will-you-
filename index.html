@@ -70,6 +70,23 @@
     pointer-events: none;
     animation: float linear infinite;
   }
+  .note {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(620px, calc(100% - 32px));
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--deep);
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 18px;
+    padding: 12px 18px;
+    box-shadow: 0 8px 20px rgba(214, 65, 119, 0.18);
+    z-index: 3;
+  }
+  .note strong { display: block; margin-bottom: 4px; }
   @keyframes float {
     0%   { transform: translateY(0) rotate(-8deg); }
     50%  { transform: translateY(-55vh) rotate(8deg); }
@@ -85,6 +102,12 @@
       <button type="button">Yes</button>
       <button type="button">Yes</button>
     </div>
+  </div>
+
+  <div class="note">
+    <strong>From Jesus 💖</strong>
+    I hope you know that I am always here for you, so you can tell me if you're
+    upset with me or anything — I will do things better.
   </div>
 
 <script>
