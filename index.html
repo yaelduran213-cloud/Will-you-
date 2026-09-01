@@ -61,6 +61,20 @@
     to { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
   }
   .final h1 { font-size: clamp(2rem, 6vw, 3rem); }
+  .animal {
+    position: fixed;
+    bottom: -60px;
+    font-size: 38px;
+    opacity: 0.75;
+    z-index: 0;
+    pointer-events: none;
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0%   { transform: translateY(0) rotate(-8deg); }
+    50%  { transform: translateY(-55vh) rotate(8deg); }
+    100% { transform: translateY(-115vh) rotate(-8deg); }
+  }
 </style>
 </head>
 <body>
@@ -78,6 +92,18 @@
     { question: "Are you sure?", sub: "Take your time." },
     { question: "Are you sure sure?", sub: "Last chance to be extremely sure." }
   ];
+
+  const animals = ["🐻", "🐰", "🐱", "🐶", "🦊", "🐼", "🐨", "🐹", "🐧", "🦄", "🐥", "🦔"];
+  animals.forEach((emoji, i) => {
+    const el = document.createElement("div");
+    el.className = "animal";
+    el.textContent = emoji;
+    el.style.left = (i / animals.length) * 100 + Math.random() * 5 + "vw";
+    el.style.animationDuration = 16 + Math.random() * 14 + "s";
+    el.style.animationDelay = -Math.random() * 20 + "s";
+    el.style.fontSize = 28 + Math.random() * 22 + "px";
+    document.body.appendChild(el);
+  });
 
   let step = 0;
   const card = document.getElementById("card");
