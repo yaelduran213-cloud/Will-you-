@@ -6,6 +6,9 @@
 <title>Dear Astrid</title>
 <meta property="og:title" content="Dear Astrid, will you be my girlfriend?" />
 <meta property="og:description" content="There is only one answer." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
 <style>
   :root { --pink: #ff6b9d; --deep: #d64177; }
   * { box-sizing: border-box; }
@@ -87,6 +90,18 @@
     z-index: 3;
   }
   .note strong { display: block; margin-bottom: 4px; }
+  .verse {
+    font-family: "Great Vibes", "Segoe Script", cursive;
+    font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+    line-height: 1.35;
+    margin: 0 0 26px;
+    background: linear-gradient(90deg, #d64177, #ff6b9d, #b8478f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  .verse::before, .verse::after { content: "✦"; font-size: 0.6em; opacity: 0.5; margin: 0 10px; }
   .flower {
     position: fixed;
     z-index: 4;
@@ -110,6 +125,7 @@
   <div class="card" id="card">
     <h1 id="question">Dear Astrid,<br />will you be my girlfriend?</h1>
     <p class="sub" id="sub">Choose carefully.</p>
+    <p class="verse">como mentí, se ve claro lo que siento</p>
     <div class="buttons" id="buttons">
       <button type="button">Yes</button>
       <button type="button">Yes</button>
